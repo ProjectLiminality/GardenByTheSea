@@ -83,8 +83,6 @@ The pool area tells the story of three decades of abandonment:
 
 ![Abandoned pool with diving platform](images/06-luziamar-abandoned-pool-diving-platform.jpg)
 
-![The poolside pavilion](images/04-luziamar-abandoned-poolside-pavilion.jpg)
-
 Inside, the famous 360° view octagon still stands:
 
 ![Interior of the octagon — the legendary 360° panoramic space](images/07-luziamar-abandoned-octagon-interior-360-view.jpg)
@@ -93,7 +91,7 @@ Inside, the famous 360° view octagon still stands:
 
 ### The Memory Lives On
 
-People still throw **"Remember Luziamar"** parties in Viana do Castelo, celebrating the spirit of a place that closed three decades ago. There's even a traditional dish named after it: "Bacalhau à Luziamar."
+People still throw **["Remember Luziamar"](https://noticiasdeviana.pt/de-meca-da-musica-a-lugar-abandonado-o-luziamar-faria-50-anos/)** parties in Viana do Castelo, celebrating the spirit of a place that closed three decades ago. There's even a traditional dish named after it: "Bacalhau à Luziamar."
 
 This isn't just a building — it's a living memory in the collective consciousness of the region.
 
