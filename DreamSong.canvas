@@ -1,4 +1,235 @@
 {
-  "nodes": [],
-  "edges": []
+  "nodes": [
+    {
+      "id": "title",
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 600,
+      "height": 120,
+      "text": "# Garden by the Sea\n\n> *\"Portugal is a garden by the sea.\"* — Fernando Pessoa\n\nTurning the abandoned Luziamar complex next to Praia do Cabedelo in Viana do Castelo into the most magical cultural nexus point on the planet."
+    },
+    {
+      "id": "vibe-anchor",
+      "type": "text",
+      "x": 0,
+      "y": 180,
+      "width": 600,
+      "height": 80,
+      "text": "## Vibe Anchor\n\n*The frequency of the dream: Hotel Adriano from Porco Rosso. A garden by the sea where life is celebrated — families during the day, magic at night, always open, always welcoming.*"
+    },
+    {
+      "id": "location-header",
+      "type": "text",
+      "x": 0,
+      "y": 320,
+      "width": 600,
+      "height": 120,
+      "text": "## The Location\n\n**Praia do Cabedelo, Viana do Castelo, Portugal**\n\n- One of the best kitesurfing beaches in Europe\n- First line of the beach, near the mouth of the Lima River\n- 45 minutes from Porto Airport\n- Blue Flag beach with golden sand, dunes, and coastal pine forest"
+    },
+    {
+      "id": "img-aerial-overview",
+      "type": "file",
+      "x": 0,
+      "y": 500,
+      "width": 600,
+      "height": 350,
+      "file": "images/09-aerial-cabedelo-beach-marina-overview.png"
+    },
+    {
+      "id": "img-beach-proximity",
+      "type": "file",
+      "x": 0,
+      "y": 910,
+      "width": 600,
+      "height": 350,
+      "file": "images/10-aerial-luziamar-beach-proximity.png"
+    },
+    {
+      "id": "property-details",
+      "type": "text",
+      "x": 0,
+      "y": 1320,
+      "width": 600,
+      "height": 140,
+      "text": "### The Property\n\n- **Size**: ~20,000 m² of beachfront land\n- **Status**: Abandoned since ~1995, actively listed for sale\n- **Current Owner**: Construções Rites, Lda (Agostinho Rites, majority shareholder)\n- **Permits**: Approved building permit for ~80 tourist apartments + facilities\n- **Contact**: +351 258 828 798 | Praça da República, nº30, Viana do Castelo"
+    },
+    {
+      "id": "architecture-header",
+      "type": "text",
+      "x": 0,
+      "y": 1520,
+      "width": 600,
+      "height": 100,
+      "text": "### Building Architecture\n\nThe original 1969 design created a distinctive structure:\n- **Three interconnected volumes**: Two parallelepipeds and a central octagon\n- **Two main floors** plus a third-floor solarium on the eastern volume\n- **360° panoramic views** from the main entertainment spaces"
+    },
+    {
+      "id": "img-building-closeup",
+      "type": "file",
+      "x": 0,
+      "y": 1680,
+      "width": 600,
+      "height": 350,
+      "file": "images/13-aerial-luziamar-building-closeup-octagon.png"
+    },
+    {
+      "id": "img-building-context",
+      "type": "file",
+      "x": 0,
+      "y": 2090,
+      "width": 600,
+      "height": 350,
+      "file": "images/12-aerial-luziamar-building-context.png"
+    },
+    {
+      "id": "history-header",
+      "type": "text",
+      "x": 0,
+      "y": 2500,
+      "width": 600,
+      "height": 60,
+      "text": "## The History: Luziamar (1974-1995)"
+    },
+    {
+      "id": "cultural-phenomenon",
+      "type": "text",
+      "x": 0,
+      "y": 2620,
+      "width": 600,
+      "height": 160,
+      "text": "### A Cultural Phenomenon\n\nLuziamar opened in 1974, just 12 days before Portugal's Carnation Revolution. For over two decades, it became legendary:\n\n- **\"The mecca of music\"** — considered the best discotheque in Portugal and the Iberian Peninsula\n- **Complete resort complex**: Discotheque, restaurant, bar, swimming pool, tennis courts, mini-golf\n- **Revolutionary for its time**: 360° panoramic views, special effects (confetti, soap bubbles, slides)\n- **Cultural icon**: Ranked alongside Romaria festival and Santa Luzia basilica as symbols of Viana do Castelo\n- **Social hub**: \"Where people found spouses, boyfriends, girlfriends\" — a place that created lifelong connections"
+    },
+    {
+      "id": "img-glory-days",
+      "type": "file",
+      "x": 0,
+      "y": 2840,
+      "width": 600,
+      "height": 400,
+      "file": "images/01-luziamar-glory-days-packed-dancefloor-1980s.jpg"
+    },
+    {
+      "id": "closure-mystery",
+      "type": "text",
+      "x": 0,
+      "y": 3300,
+      "width": 600,
+      "height": 160,
+      "text": "### The Closure Mystery\n\nAround 1995, Luziamar closed. The reasons remain unclear — it wasn't lack of customers; the place was thriving. Since then:\n\n- **2005**: Fire consumed part of the complex\n- **2005**: Owners announced €10 million restoration plan — never executed\n- **2018-2020**: Academic thesis projects and design competitions — owners still seeking solutions\n- **2025**: Building stands in ruins, but the memory lives on\n\n**The building has been waiting for the right partners.**"
+    },
+    {
+      "id": "ruins-header",
+      "type": "text",
+      "x": 0,
+      "y": 3520,
+      "width": 600,
+      "height": 40,
+      "text": "### Today: The Ruins"
+    },
+    {
+      "id": "img-exterior-full",
+      "type": "file",
+      "x": 0,
+      "y": 3620,
+      "width": 600,
+      "height": 350,
+      "file": "images/02-luziamar-abandoned-exterior-full-view.jpeg"
+    },
+    {
+      "id": "img-exterior-octagon",
+      "type": "file",
+      "x": 0,
+      "y": 4030,
+      "width": 600,
+      "height": 350,
+      "file": "images/03-luziamar-abandoned-exterior-octagon-wing.jpeg"
+    },
+    {
+      "id": "pool-text",
+      "type": "text",
+      "x": 0,
+      "y": 4440,
+      "width": 600,
+      "height": 40,
+      "text": "The pool area tells the story of three decades of abandonment:"
+    },
+    {
+      "id": "img-pool-overgrown",
+      "type": "file",
+      "x": 0,
+      "y": 4540,
+      "width": 600,
+      "height": 350,
+      "file": "images/05-luziamar-abandoned-pool-overgrown.jpg"
+    },
+    {
+      "id": "img-pool-diving",
+      "type": "file",
+      "x": 0,
+      "y": 4950,
+      "width": 600,
+      "height": 350,
+      "file": "images/06-luziamar-abandoned-pool-diving-platform.jpg"
+    },
+    {
+      "id": "octagon-text",
+      "type": "text",
+      "x": 0,
+      "y": 5360,
+      "width": 600,
+      "height": 40,
+      "text": "Inside, the famous 360° view octagon still stands:"
+    },
+    {
+      "id": "img-octagon-interior",
+      "type": "file",
+      "x": 0,
+      "y": 5460,
+      "width": 600,
+      "height": 350,
+      "file": "images/07-luziamar-abandoned-octagon-interior-360-view.jpg"
+    },
+    {
+      "id": "img-rooftop-solarium",
+      "type": "file",
+      "x": 0,
+      "y": 5870,
+      "width": 600,
+      "height": 350,
+      "file": "images/08-luziamar-abandoned-rooftop-solarium.jpg"
+    },
+    {
+      "id": "memory-lives-on",
+      "type": "text",
+      "x": 0,
+      "y": 6280,
+      "width": 600,
+      "height": 120,
+      "text": "### The Memory Lives On\n\nPeople still throw **\"Remember Luziamar\"** parties in Viana do Castelo, celebrating the spirit of a place that closed three decades ago. There's even a traditional dish named after it: \"Bacalhau à Luziamar.\"\n\nThis isn't just a building — it's a living memory in the collective consciousness of the region."
+    }
+  ],
+  "edges": [
+    {"id": "e1", "fromNode": "title", "fromSide": "bottom", "toNode": "vibe-anchor", "toSide": "top"},
+    {"id": "e2", "fromNode": "vibe-anchor", "fromSide": "bottom", "toNode": "location-header", "toSide": "top"},
+    {"id": "e3", "fromNode": "location-header", "fromSide": "bottom", "toNode": "img-aerial-overview", "toSide": "top"},
+    {"id": "e4", "fromNode": "img-aerial-overview", "fromSide": "bottom", "toNode": "img-beach-proximity", "toSide": "top"},
+    {"id": "e5", "fromNode": "img-beach-proximity", "fromSide": "bottom", "toNode": "property-details", "toSide": "top"},
+    {"id": "e6", "fromNode": "property-details", "fromSide": "bottom", "toNode": "architecture-header", "toSide": "top"},
+    {"id": "e7", "fromNode": "architecture-header", "fromSide": "bottom", "toNode": "img-building-closeup", "toSide": "top"},
+    {"id": "e8", "fromNode": "img-building-closeup", "fromSide": "bottom", "toNode": "img-building-context", "toSide": "top"},
+    {"id": "e9", "fromNode": "img-building-context", "fromSide": "bottom", "toNode": "history-header", "toSide": "top"},
+    {"id": "e10", "fromNode": "history-header", "fromSide": "bottom", "toNode": "cultural-phenomenon", "toSide": "top"},
+    {"id": "e11", "fromNode": "cultural-phenomenon", "fromSide": "bottom", "toNode": "img-glory-days", "toSide": "top"},
+    {"id": "e12", "fromNode": "img-glory-days", "fromSide": "bottom", "toNode": "closure-mystery", "toSide": "top"},
+    {"id": "e13", "fromNode": "closure-mystery", "fromSide": "bottom", "toNode": "ruins-header", "toSide": "top"},
+    {"id": "e14", "fromNode": "ruins-header", "fromSide": "bottom", "toNode": "img-exterior-full", "toSide": "top"},
+    {"id": "e15", "fromNode": "img-exterior-full", "fromSide": "bottom", "toNode": "img-exterior-octagon", "toSide": "top"},
+    {"id": "e16", "fromNode": "img-exterior-octagon", "fromSide": "bottom", "toNode": "pool-text", "toSide": "top"},
+    {"id": "e17", "fromNode": "pool-text", "fromSide": "bottom", "toNode": "img-pool-overgrown", "toSide": "top"},
+    {"id": "e18", "fromNode": "img-pool-overgrown", "fromSide": "bottom", "toNode": "img-pool-diving", "toSide": "top"},
+    {"id": "e19", "fromNode": "img-pool-diving", "fromSide": "bottom", "toNode": "octagon-text", "toSide": "top"},
+    {"id": "e20", "fromNode": "octagon-text", "fromSide": "bottom", "toNode": "img-octagon-interior", "toSide": "top"},
+    {"id": "e21", "fromNode": "img-octagon-interior", "fromSide": "bottom", "toNode": "img-rooftop-solarium", "toSide": "top"},
+    {"id": "e22", "fromNode": "img-rooftop-solarium", "fromSide": "bottom", "toNode": "memory-lives-on", "toSide": "top"}
+  ]
 }
