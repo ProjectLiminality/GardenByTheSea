@@ -16,10 +16,14 @@ Turning the abandoned Luziamar complex next to Praia do Cabedelo in Viana do Cas
 
 **Praia do Cabedelo, Viana do Castelo, Portugal**
 
+![Aerial view of Cabedelo beach and marina](images/09-aerial-cabedelo-beach-marina-overview.png)
+
 - One of the best kitesurfing beaches in Europe
 - First line of the beach, near the mouth of the Lima River
 - 45 minutes from Porto Airport
 - Blue Flag beach with golden sand, dunes, and coastal pine forest
+
+![Luziamar's proximity to the beach](images/10-aerial-luziamar-beach-proximity.png)
 
 ### The Property
 
@@ -31,10 +35,14 @@ Turning the abandoned Luziamar complex next to Praia do Cabedelo in Viana do Cas
 
 ### Building Architecture
 
+![Aerial closeup showing the distinctive octagon structure](images/13-aerial-luziamar-building-closeup-octagon.png)
+
 The original 1969 design created a distinctive structure:
 - **Three interconnected volumes**: Two parallelepipeds and a central octagon
 - **Two main floors** plus a third-floor solarium on the eastern volume
 - **360° panoramic views** from the main entertainment spaces
+
+![Building in surrounding context](images/12-aerial-luziamar-building-context.png)
 
 ---
 
@@ -43,6 +51,8 @@ The original 1969 design created a distinctive structure:
 ### A Cultural Phenomenon
 
 [Luziamar opened in 1974](https://noticiasdeviana.pt/de-meca-da-musica-a-lugar-abandonado-o-luziamar-faria-50-anos), just 12 days before Portugal's Carnation Revolution. For over two decades, it became legendary:
+
+![Packed dancefloor at Luziamar in its glory days](images/01-luziamar-glory-days-packed-dancefloor-1980s.jpg)
 
 - **"The mecca of music"** — considered the best discotheque in Portugal and the Iberian Peninsula
 - **Complete resort complex**: Discotheque, restaurant, bar, swimming pool, tennis courts, mini-golf
@@ -60,6 +70,26 @@ Around 1995, Luziamar closed. The reasons remain unclear — it wasn't lack of c
 - **2025**: Building stands in ruins, but the memory lives on
 
 **The building has been waiting for the right partners.**
+
+### Today: The Ruins
+
+![Full exterior view of abandoned Luziamar](images/02-luziamar-abandoned-exterior-full-view.jpeg)
+
+![The octagon wing, now covered in graffiti](images/03-luziamar-abandoned-exterior-octagon-wing.jpeg)
+
+The pool area tells the story of three decades of abandonment:
+
+![The overgrown swimming pool](images/05-luziamar-abandoned-pool-overgrown.jpg)
+
+![Abandoned pool with diving platform](images/06-luziamar-abandoned-pool-diving-platform.jpg)
+
+![The poolside pavilion](images/04-luziamar-abandoned-poolside-pavilion.jpg)
+
+Inside, the famous 360° view octagon still stands:
+
+![Interior of the octagon — the legendary 360° panoramic space](images/07-luziamar-abandoned-octagon-interior-360-view.jpg)
+
+![The rooftop solarium](images/08-luziamar-abandoned-rooftop-solarium.jpg)
 
 ### The Memory Lives On
 
@@ -99,6 +129,8 @@ A new form of conscious celebration — channeling the immense psychic energy of
 The beach provides the perfect setting for Steven Greer's CE5 protocols — group meditation for world peace under the stars, open to contact.
 
 ### The Larger Container
+
+![Aerial view showing Luziamar's position between beach and river mouth](images/11-aerial-luziamar-to-river-mouth.png)
 
 Adjacent land could enable:
 - A more permanent village/community component
@@ -176,7 +208,3 @@ Both propose preserving the distinctive three-volume structure while creating mo
 1. **Property Price**: Not listed publicly — requires direct inquiry to Construções Rites
 2. **Permit Flexibility**: Can approved permits be modified for community space vs. pure hotel?
 3. **Adjacent Land**: Is the rumor about land being for sale next to the neighbouring campsite accurate?
-
----
-
-*This vision is a living document. It grows through resonance, not force.*
