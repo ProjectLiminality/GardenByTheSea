@@ -206,3 +206,8 @@ Both propose preserving the distinctive three-volume structure while creating mo
 1. **Property Price**: Not listed publicly — requires direct inquiry to Construções Rites
 2. **Permit Flexibility**: Can approved permits be modified for community space vs. pure hotel?
 3. **Adjacent Land**: Is the rumor about land being for sale next to the neighbouring campsite accurate?
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hYyuINuXJds" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+[Porco Rosso |Gina song| A love letter to Porco Rosso : Hotel Adriano #ghibli #ghiblimusic #porco](https://www.youtube.com/watch?v=hYyuINuXJds)
