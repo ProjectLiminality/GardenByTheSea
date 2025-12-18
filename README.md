@@ -24,8 +24,8 @@ Turning the abandoned Luziamar complex next to Praia do Cabedelo in Viana do Cas
 ### The Property
 
 - **Size**: ~20,000 m² of beachfront land
-- **Status**: Abandoned since ~1995, actively listed for sale
-- **Current Owner**: Construções Rites, Lda (Agostinho Rites, majority shareholder)
+- **Status**: Abandoned since ~1995, [actively listed for sale](https://www.construcoesrites.com/en-gb/property/hotel-for-sale-in-luziamar-cabedelo-beach-in-viana-do-castelo-on-the-1st-line-of-the-beach-and-near-/17185928)
+- **Current Owner**: [Construções Rites, Lda](https://www.racius.com/construcoes-rites-lda/) (Agostinho Rites, majority shareholder)
 - **Permits**: Approved building permit for ~80 tourist apartments + facilities
 - **Contact**: +351 258 828 798 | Praça da República, nº30, Viana do Castelo
 
@@ -42,7 +42,7 @@ The original 1969 design created a distinctive structure:
 
 ### A Cultural Phenomenon
 
-Luziamar opened in 1974, just 12 days before Portugal's Carnation Revolution. For over two decades, it became legendary:
+[Luziamar opened in 1974](https://noticiasdeviana.pt/de-meca-da-musica-a-lugar-abandonado-o-luziamar-faria-50-anos), just 12 days before Portugal's Carnation Revolution. For over two decades, it became legendary:
 
 - **"The mecca of music"** — considered the best discotheque in Portugal and the Iberian Peninsula
 - **Complete resort complex**: Discotheque, restaurant, bar, swimming pool, tennis courts, mini-golf
@@ -54,7 +54,7 @@ Luziamar opened in 1974, just 12 days before Portugal's Carnation Revolution. Fo
 
 Around 1995, Luziamar closed. The reasons remain unclear — it wasn't lack of customers; the place was thriving. Since then:
 
-- **2005**: Fire consumed part of the complex
+- **2005**: [Fire consumed part of the complex](https://www.publico.pt/2005/10/14/local/noticia/viana-do-castelo-incendio-consome-parte-do-complexo-turistico-do-luziamar-1235657)
 - **2005**: Owners announced €10 million restoration plan — never executed
 - **2018-2020**: Academic thesis projects and design competitions — owners still seeking solutions
 - **2025**: Building stands in ruins, but the memory lives on
@@ -91,7 +91,7 @@ A new form of conscious celebration — channeling the immense psychic energy of
 **Core Elements:**
 - Sacraments taken together intentionally
 - Dynamic group prayer on the dance floor
-- Developing protocols to transform hedonistic heat into a "mighty instrument of peace"
+- Developing protocols to transform hedonistic heat into a "mighty instrument for peace"
 - Calling upon "the most high, the absolute authority to demand what is ours — world peace and the kingdom of heaven for every child of God"
 
 ### CE5 Contact
@@ -152,8 +152,8 @@ Perhaps it's been waiting for this exact constellation of elements to align.
 
 For large gatherings, adjacent accommodation already exists:
 
-- **INATEL Cabedelo Camping**: 25 hectares, 300 tent + 156 caravan pitches, direct beach access
-- **FeelViana Sport Hotel**: 46 rooms + 9 bungalows, directly at Praia do Cabedelo
+- **[INATEL Cabedelo Camping](https://hoteis.inatel.pt/en/Menu/Camping/Cabedelo/Inatel-Cabedelo-Camping-Park.aspx)**: 25 hectares, 300 tent + 156 caravan pitches, direct beach access
+- **[FeelViana Sport Hotel](https://www.feelviana.com/en/hotel-rooms)**: 46 rooms + 9 bungalows, directly at Praia do Cabedelo
 - **Viana do Castelo**: 192 hotels within range, 1.5-2.5km away
 
 **Total nearby capacity**: 500+ camping spots + 100+ hotel rooms
@@ -164,8 +164,8 @@ For large gatherings, adjacent accommodation already exists:
 
 Two master's theses confirm **rehabilitation is architecturally viable**:
 
-- **"(Re)Habitar Luziamar" (2018)** — Liliana Branco, University of Beira Interior
-- **"Do processo à obra, da ruína ao projecto" (2020)** — Magda Afonso, University of Porto (in response to a design competition launched by the property owner)
+- **["(Re)Habitar Luziamar" (2018)](https://ubibliorum.ubi.pt/handle/10400.6/8469)** — Liliana Branco, University of Beira Interior
+- **["Do processo à obra, da ruína ao projecto" (2020)](https://sigarra.up.pt/reitoria/pt/pub_geral.pub_view?pi_pub_base_id=413270)** — Magda Afonso, University of Porto (in response to a design competition launched by the property owner)
 
 Both propose preserving the distinctive three-volume structure while creating modern hospitality spaces.
 
@@ -175,40 +175,7 @@ Both propose preserving the distinctive three-volume structure while creating mo
 
 1. **Property Price**: Not listed publicly — requires direct inquiry to Construções Rites
 2. **Permit Flexibility**: Can approved permits be modified for community space vs. pure hotel?
-3. **Adjacent Land**: What parcels are available closest to Luziamar?
-4. **Governance Model**: What structure would allow this to be truly community-owned?
-
----
-
-## Next Steps
-
-1. **Contact Construções Rites** — asking price, permit details, adjacent land
-2. **Connect with The Garden** — collaboration potential (living@thegarden.pt)
-3. **Create pitch materials** for Omya and potential partners
-4. **Connect with local community** — people who remember Luziamar
-
----
-
-## Sources
-
-### News & History
-- [De meca da música a lugar abandonado: o Luziamar faria 50 anos](https://noticiasdeviana.pt/de-meca-da-musica-a-lugar-abandonado-o-luziamar-faria-50-anos) — Notícias de Viana
-- [Fotografias mostram estado de abandono da discoteca Luziamar](https://ominho.pt/fotografias-mostram-estado-de-abandono-da-discoteca-luziamar-em-viana-do-castelo/) — O Minho
-- [Incêndio consome parte do complexo turístico do Luziamar (2005)](https://www.publico.pt/2005/10/14/local/noticia/viana-do-castelo-incendio-consome-parte-do-complexo-turistico-do-luziamar-1235657) — Público
-
-### Property & Corporate
-- [Property Listing - Construções Rites](https://www.construcoesrites.com/en-gb/property/hotel-for-sale-in-luziamar-cabedelo-beach-in-viana-do-castelo-on-the-1st-line-of-the-beach-and-near-/17185928)
-- [Construções Rites, Lda - Racius](https://www.racius.com/construcoes-rites-lda/)
-- [Luziamar, Sociedade Promotora do Turismo Vianense S.A - Racius](https://www.racius.com/luziamar-sociedade-promotora-do-turismo-vianense-s-a/)
-
-### Academic Research
-- [(Re)Habitar LUZIAMAR - Liliana Branco (2018)](https://ubibliorum.ubi.pt/handle/10400.6/8469) — University of Beira Interior
-- [Do processo à obra - Magda Afonso (2020)](https://sigarra.up.pt/reitoria/pt/pub_geral.pub_view?pi_pub_base_id=413270) — University of Porto
-
-### Community
-- [The Garden](https://thegarden.pt)
-- [INATEL Cabedelo Camping](https://hoteis.inatel.pt/en/Menu/Camping/Cabedelo/Inatel-Cabedelo-Camping-Park.aspx)
-- [FeelViana Sport Hotel](https://www.feelviana.com/en/hotel-rooms)
+3. **Adjacent Land**: Is the rumor about land being for sale next to the neighbouring campsite accurate?
 
 ---
 
