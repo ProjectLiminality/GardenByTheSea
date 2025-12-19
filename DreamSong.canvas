@@ -20,9 +20,10 @@
 		{"id":"img-building-closeup","type":"file","file":"GardenByTheSea/images/13-aerial-luziamar-building-closeup-octagon.png","x":400,"y":1521,"width":360,"height":198},
 		{"id":"img-glory-days","type":"file","file":"GardenByTheSea/images/01-luziamar-glory-days-packed-dancefloor-1980s.jpg","x":400,"y":2707,"width":360,"height":203},
 		{"id":"cultural-phenomenon","type":"text","text":"### A Cultural Phenomenon\n\n[Luziamar opened in 1974](https://noticiasdeviana.pt/de-meca-da-musica-a-lugar-abandonado-o-luziamar-faria-50-anos), just 12 days before Portugal's Carnation Revolution. For over two decades, it became legendary:\n\n- **\"The mecca of music\"** — considered the best discotheque in Portugal and the Iberian Peninsula\n- **Complete resort complex**: Discotheque, restaurant, bar, swimming pool, tennis courts, mini-golf\n- **Revolutionary for its time**: 360° panoramic views, special effects (confetti, soap bubbles, slides)\n- **Cultural icon**: Ranked alongside Romaria festival and Santa Luzia basilica as symbols of Viana do Castelo\n- **Social hub**: \"Where people found spouses, boyfriends, girlfriends\" — a place that created lifelong connections","x":1000,"y":2539,"width":360,"height":540},
-		{"id":"title","type":"text","text":"# Garden by the Sea\n\n> *\"Portugal is a garden by the sea.\"* — Fernando Pessoa\n\n\n\nTurning the abandoned Luziamar complex next to Praia do Cabedelo in Viana do Castelo into the most magical cultural nexus point on the planet.","x":400,"y":-460,"width":360,"height":256},
+		{"id":"title","type":"text","text":"\n\nTurning the abandoned Luziamar complex next to Praia do Cabedelo in Viana do Castelo into the most magical cultural nexus point on the planet.","x":400,"y":-340,"width":360,"height":136},
 		{"id":"vibe-anchor","type":"text","text":"## Vibe Anchor\n\n*The frequency of the dream: Hotel Adriano from Porco Rosso. A garden by the sea where life is celebrated — families during the day, magic at night, always open, always welcoming.*","x":920,"y":-56,"width":360,"height":208},
-		{"id":"b363dc697cbbe324","x":400,"y":-154,"width":400,"height":400,"type":"file","file":"GardenByTheSea/porco-rosso-hotel-adriano.mp4"}
+		{"id":"b363dc697cbbe324","type":"file","file":"GardenByTheSea/porco-rosso-hotel-adriano.mp4","x":380,"y":-64,"width":400,"height":225},
+		{"id":"9d411ef2eb19f1ad","type":"text","text":"> *\"Portugal is a garden by the sea.\"* — Fernando Pessoa\n","x":418,"y":-500,"width":325,"height":80}
 	],
 	"edges":[
 		{"id":"e10","fromNode":"history-header","fromSide":"bottom","toNode":"img-glory-days","toSide":"top"},
@@ -46,6 +47,7 @@
 		{"id":"b3dc036e34019c41","fromNode":"img-glory-days","fromSide":"right","toNode":"cultural-phenomenon","toSide":"left","toEnd":"none"},
 		{"id":"6215bebc03eba6ef","fromNode":"b363dc697cbbe324","fromSide":"bottom","toNode":"img-aerial-overview","toSide":"top"},
 		{"id":"240de963b2d2213e","fromNode":"b363dc697cbbe324","fromSide":"right","toNode":"vibe-anchor","toSide":"left","toEnd":"none"},
-		{"id":"2c8ff0b2e180bf00","fromNode":"title","fromSide":"bottom","toNode":"b363dc697cbbe324","toSide":"top"}
+		{"id":"2c8ff0b2e180bf00","fromNode":"title","fromSide":"bottom","toNode":"b363dc697cbbe324","toSide":"top"},
+		{"id":"0aa050b51df81415","fromNode":"9d411ef2eb19f1ad","fromSide":"bottom","toNode":"title","toSide":"top"}
 	]
 }
