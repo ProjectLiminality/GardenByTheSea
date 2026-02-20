@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRISM</title>
+  <script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+  <style>
+    :root {
+      --bg: #000;
+      --bg-hover: #000;
+      --text: #fff;
+      --text-dim: #fff;
+      --border: #fff;
+      --error: #FF644E;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    #app {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    /* ── Dropzone ── */
+    .dropzone {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 1rem; width: 80%; max-width: 560px; padding: 3rem;
+      border: 2px dashed var(--border); border-radius: 16px;
+      transition: border-color 0.2s, background 0.2s; cursor: default;
+    }
+    .dropzone--active { border-color: #fff; }
+    .dropzone__icon { font-size: 3rem; color: #fff; }
+    .dropzone__title { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+    .dropzone__hint { color: var(--text-dim); font-size: 0.9rem; }
+    .dropzone__input-row { display: flex; gap: 0.5rem; width: 100%; margin-top: 0.5rem; }
+    .dropzone__input {
+      flex: 1; padding: 0.6rem 0.8rem; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-size: 0.85rem; font-family: monospace;
+      outline: none; transition: border-color 0.2s;
+    }
+    .dropzone__input:focus { border-color: var(--text-dim); }
+    .dropzone__input::placeholder { color: var(--text-dim); }
+    .dropzone__go {
+      padding: 0.6rem 1.2rem; background: var(--text); color: var(--bg);
+      border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .dropzone__go:hover { opacity: 1; }
+
+    /* ── Loader ── */
+    .loader { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+    .loader__spinner {
+      width: 48px; height: 48px; border: 3px solid var(--border);
+      border-top-color: var(--text); border-radius: 50%; animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader__text { font-size: 1rem; color: var(--text); }
+    .loader__peers { font-size: 0.85rem; color: var(--text-dim); min-height: 1.2em; }
+    .loader__cancel {
+      margin-top: 0.5rem; padding: 0.4rem 1rem; background: transparent;
+      color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px;
+      font-size: 0.8rem; cursor: pointer; transition: color 0.2s, border-color 0.2s;
+    }
+    .loader__cancel:hover { color: var(--text); border-color: var(--text-dim); }
+
+    /* ── Player ── */
+    .player { position: relative; width: 100%; height: 100%; background: #000; overflow: hidden; }
+    .player__video { width: 100%; height: 100%; object-fit: contain; }
+    .player__controls {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1rem;
+      background: linear-gradient(transparent, #000);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .player__controls--visible, .player:hover .player__controls { opacity: 1; }
+    .player__btn {
+      background: none; border: none; color: #fff; font-size: 1.1rem;
+      cursor: pointer; padding: 0.2rem 0.4rem;
+      line-height: 1;
+    }
+    .player__status-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--text-dim);
+      flex-shrink: 0; transition: background 0.3s;
+    }
+    .player__status-dot--active { background: #fff; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 #fff; }
+      50% { box-shadow: 0 0 8px 4px #fff; }
+    }
+    .player__seek-wrapper { flex: 1; position: relative; height: 20px; display: flex; align-items: center; }
+    .player__download-progress {
+      position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      height: 4px; background: #fff; border-radius: 2px;
+      width: 0%; pointer-events: none; transition: width 0.5s;
+    }
+    .player__seek {
+      width: 100%; height: 4px; -webkit-appearance: none; appearance: none;
+      background: #fff; border-radius: 2px; outline: none;
+      cursor: pointer; position: relative; z-index: 1;
+    }
+    .player__seek::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 12px; height: 12px;
+      border-radius: 50%; background: #fff; cursor: pointer;
+    }
+    .player__seek::-moz-range-thumb {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #fff; cursor: pointer; border: none;
+    }
+    .player__time {
+      font-size: 0.75rem; color: #fff; font-variant-numeric: tabular-nums;
+      white-space: nowrap; min-width: 85px; text-align: center;
+    }
+    .player__volume {
+      width: 70px; height: 4px; -webkit-appearance: none; appearance: none;
+      background: #fff; border-radius: 2px; outline: none; cursor: pointer;
+    }
+    .player__volume::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 10px; height: 10px;
+      border-radius: 50%; background: #fff; cursor: pointer;
+    }
+    .player__volume::-moz-range-thumb {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #fff; cursor: pointer; border: none;
+    }
+
+    /* ── Post-play ── */
+    .post-play {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 1.5rem;
+      background: #000; z-index: 10;
+    }
+    .post-play__title { font-size: 1.3rem; font-weight: 500; }
+    .post-play__actions { display: flex; gap: 0.8rem; }
+    .post-play__btn {
+      padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border); background: transparent; color: var(--text);
+    }
+    .post-play__btn:hover { background: var(--bg-hover); }
+    .post-play__btn--primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .post-play__btn--primary:hover { opacity: 1; }
+
+    /* ── Error toast ── */
+    .error-toast {
+      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      padding: 0.7rem 1.4rem; background: var(--error); color: white;
+      border-radius: 8px; font-size: 0.85rem; z-index: 999; animation: toast-in 0.3s ease;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // ── Bridge detection ──
+    // If running inside an Electron host (Obsidian/InterBrain), the parent
+    // sends { type: 'prism-bridge', port: N } via postMessage. We use the
+    // bridge's local HTTP server for TCP/UDP torrent access. Otherwise we
+    // fall back to browser WebTorrent (WebRTC only) with a service worker
+    // that provides range-request support for video playback.
+    var bridgePort = null;
+    var bridgeReady = false;
+    var pendingMagnet = null;
+    var currentInfoHash = null;
+    var statusInterval = null;
+    var client = null; // browser WebTorrent, created only if no bridge
+    var currentTorrent = null;
+    var infoInterval = null;
+    var swReady = false;
+    var swRegistration = null;
+
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'prism-bridge') {
+        bridgePort = e.data.port;
+        bridgeReady = true;
+        console.log('[PRISM] Bridge detected on port ' + bridgePort);
+      }
+    });
+
+    // Ask parent for bridge (parent responds if bridge is running)
+    try { window.parent.postMessage({ type: 'prism-bridge-probe' }, '*'); } catch(e) {}
+
+    // Register service worker for browser-mode range-request support
+    if ('serviceWorker' in navigator) {
+      // Only register SW when NOT in an iframe (Electron bridge handles its own streaming)
+      navigator.serviceWorker.register('sw.js').then(function(reg) {
+        swRegistration = reg;
+        // Wait for the SW to be active
+        var sw = reg.active || reg.installing || reg.waiting;
+        if (sw && sw.state === 'activated') {
+          swReady = true;
+          console.log('[PRISM] Service worker ready');
+        } else if (sw) {
+          sw.addEventListener('statechange', function() {
+            if (sw.state === 'activated') {
+              swReady = true;
+              console.log('[PRISM] Service worker activated');
+            }
+          });
+        }
+      }).catch(function(err) {
+        console.warn('[PRISM] Service worker registration failed:', err.message);
+      });
+    }
+
+    // Wait briefly for bridge response before initializing
+    setTimeout(function() {
+      if (!bridgeReady) {
+        // No bridge — use browser WebTorrent
+        if (typeof WebTorrent !== 'undefined') {
+          client = new WebTorrent();
+          console.log('[PRISM] Browser mode (WebRTC only)');
+        }
+      }
+      render();
+
+      // Auto-start from ?magnet= query param (for iframe embeds)
+      var urlParams = new URLSearchParams(window.location.search);
+      var autoMagnet = urlParams.get('magnet');
+      if (autoMagnet) {
+        startMagnet(decodeURIComponent(autoMagnet));
+      }
+    }, 300);
+
+    // ── Bridge HTTP helpers ──
+    function bridgeUrl(path) { return 'http://127.0.0.1:' + bridgePort + path; }
+
+    function bridgeAdd(magnet) {
+      return fetch(bridgeUrl('/add'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ magnet: magnet })
+      }).then(function(r) { return r.json(); });
+    }
+
+    function bridgeStatus(infoHash) {
+      return fetch(bridgeUrl('/status/' + infoHash))
+        .then(function(r) { return r.json(); });
+    }
+
+    function parseWebloc(xmlText) {
+      var doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+      var keys = doc.getElementsByTagName('key');
+      for (var i = 0; i < keys.length; i++) {
+        if (keys[i].textContent === 'URL') {
+          var next = keys[i].nextElementSibling;
+          if (next && next.tagName === 'string') return next.textContent;
+        }
+      }
+      return null;
+    }
+
+    // ── Player ──
+    class Player {
+      constructor(parent) {
+        this.onEnded = null; this.onError = null; this.hideTimer = null;
+
+        this.container = document.createElement('div');
+        this.container.className = 'player';
+        parent.appendChild(this.container);
+
+        this.video = document.createElement('video');
+        this.video.className = 'player__video';
+        this.container.appendChild(this.video);
+
+        this.controls = document.createElement('div');
+        this.controls.className = 'player__controls';
+        this.container.appendChild(this.controls);
+
+        this.statusDot = document.createElement('div');
+        this.statusDot.className = 'player__status-dot';
+        this.controls.appendChild(this.statusDot);
+
+        this.playBtn = document.createElement('button');
+        this.playBtn.className = 'player__btn';
+        this.playBtn.textContent = '\u25B6';
+        this.playBtn.onclick = () => this.togglePlay();
+        this.controls.appendChild(this.playBtn);
+
+        var seekWrapper = document.createElement('div');
+        seekWrapper.className = 'player__seek-wrapper';
+        this.controls.appendChild(seekWrapper);
+
+        this.progressOverlay = document.createElement('div');
+        this.progressOverlay.className = 'player__download-progress';
+        seekWrapper.appendChild(this.progressOverlay);
+
+        this.seekBar = document.createElement('input');
+        this.seekBar.type = 'range'; this.seekBar.className = 'player__seek';
+        this.seekBar.min = '0'; this.seekBar.max = '1000'; this.seekBar.value = '0';
+        this.seekBar.oninput = () => {
+          if (this.video.duration) this.video.currentTime = (parseInt(this.seekBar.value) / 1000) * this.video.duration;
+        };
+        seekWrapper.appendChild(this.seekBar);
+
+        this.timeDisplay = document.createElement('span');
+        this.timeDisplay.className = 'player__time';
+        this.timeDisplay.textContent = '0:00 / 0:00';
+        this.controls.appendChild(this.timeDisplay);
+
+        this.volumeBtn = document.createElement('button');
+        this.volumeBtn.className = 'player__btn';
+        this.volumeBtn.textContent = '\uD83D\uDD0A';
+        this.volumeBtn.onclick = () => this.toggleMute();
+        this.controls.appendChild(this.volumeBtn);
+
+        this.volumeSlider = document.createElement('input');
+        this.volumeSlider.type = 'range'; this.volumeSlider.className = 'player__volume';
+        this.volumeSlider.min = '0'; this.volumeSlider.max = '100'; this.volumeSlider.value = '100';
+        this.volumeSlider.oninput = () => {
+          this.video.volume = parseInt(this.volumeSlider.value) / 100;
+          this.updateVolumeIcon();
+        };
+        this.controls.appendChild(this.volumeSlider);
+
+        this.fullscreenBtn = document.createElement('button');
+        this.fullscreenBtn.className = 'player__btn';
+        this.fullscreenBtn.textContent = '\u26F6';
+        this.fullscreenBtn.onclick = () => this.toggleFullscreen();
+        this.controls.appendChild(this.fullscreenBtn);
+
+        this.video.ontimeupdate = () => this.updateSeek();
+        this.video.onended = () => { this.playBtn.textContent = '\u25B6'; this.setStreaming(false); if (this.onEnded) this.onEnded(); };
+        this.video.onclick = () => this.togglePlay();
+        this.video.onerror = () => {
+          // Ignore errors when src hasn't been set yet (MediaSource setup in progress)
+          if (!this.video.src || this.video.src === '' || this.video.src === window.location.href) return;
+          var err = this.video.error;
+          if (this.onError) this.onError(err ? 'Playback error: ' + (err.message || 'unknown codec or format issue') : 'Playback error');
+        };
+
+        this.container.onmousemove = () => this.showControls();
+        this.container.onmouseleave = () => this.scheduleHide();
+      }
+
+      play() { this.video.play().catch(() => {}); this.playBtn.textContent = '\u23F8'; }
+
+      togglePlay() {
+        if (this.video.paused) { this.video.play(); this.playBtn.textContent = '\u23F8'; }
+        else { this.video.pause(); this.playBtn.textContent = '\u25B6'; }
+      }
+
+      toggleMute() { this.video.muted = !this.video.muted; this.updateVolumeIcon(); }
+
+      updateVolumeIcon() {
+        if (this.video.muted || this.video.volume === 0) this.volumeBtn.textContent = '\uD83D\uDD07';
+        else if (this.video.volume < 0.5) this.volumeBtn.textContent = '\uD83D\uDD09';
+        else this.volumeBtn.textContent = '\uD83D\uDD0A';
+      }
+
+      toggleFullscreen() {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else this.container.requestFullscreen();
+      }
+
+      updateSeek() {
+        if (this.video.duration) {
+          this.seekBar.value = String(Math.floor((this.video.currentTime / this.video.duration) * 1000));
+          this.timeDisplay.textContent = formatTime(this.video.currentTime) + ' / ' + formatTime(this.video.duration);
+        }
+      }
+
+      setDownloadProgress(fraction) { this.progressOverlay.style.width = (fraction * 100) + '%'; }
+      setStreaming(active) { this.statusDot.classList.toggle('player__status-dot--active', active); }
+
+      showControls() { this.controls.classList.add('player__controls--visible'); this.scheduleHide(); }
+      scheduleHide() {
+        if (this.hideTimer) clearTimeout(this.hideTimer);
+        this.hideTimer = setTimeout(() => {
+          if (!this.video.paused) this.controls.classList.remove('player__controls--visible');
+        }, 3000);
+      }
+
+      destroy() { this.video.pause(); this.video.src = ''; this.container.remove(); }
+    }
+
+    function formatTime(sec) {
+      var m = Math.floor(sec / 60);
+      var s = Math.floor(sec % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    }
+
+    function formatSpeed(bps) {
+      if (bps < 1024) return bps + ' B/s';
+      if (bps < 1024 * 1024) return (bps / 1024).toFixed(1) + ' KB/s';
+      return (bps / (1024 * 1024)).toFixed(1) + ' MB/s';
+    }
+
+    // ── State machine ──
+    var app = document.getElementById('app');
+    var state = 'EMPTY';
+    var player = null;
+
+    function render() {
+      if (state === 'POST_PLAY' && player) { removeOverlay(); renderPostPlay(); return; }
+      if (state === 'STREAMING' && player) { removeOverlay(); return; }
+      if (player) { player.destroy(); player = null; }
+      app.innerHTML = '';
+      if (state === 'EMPTY') renderEmpty();
+      else if (state === 'LOADING') renderLoading();
+      else if (state === 'STREAMING') renderStreaming();
+    }
+
+    function removeOverlay() { var el = app.querySelector('.post-play'); if (el) el.remove(); }
+
+    function renderEmpty() {
+      var dz = document.createElement('div');
+      dz.className = 'dropzone';
+
+      var icon = document.createElement('div');
+      icon.className = 'dropzone__icon';
+      icon.textContent = '\u25B6';
+      dz.appendChild(icon);
+
+      var title = document.createElement('h1');
+      title.className = 'dropzone__title';
+      title.textContent = 'PRISM';
+      dz.appendChild(title);
+
+      var hint = document.createElement('p');
+      hint.className = 'dropzone__hint';
+      hint.textContent = 'Drop a .webloc file or paste a magnet link';
+      dz.appendChild(hint);
+
+      var row = document.createElement('div');
+      row.className = 'dropzone__input-row';
+
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'dropzone__input';
+      input.placeholder = 'magnet:?xt=urn:btih:...';
+      row.appendChild(input);
+
+      var go = document.createElement('button');
+      go.className = 'dropzone__go';
+      go.textContent = 'Play';
+      go.onclick = function() { var m = input.value.trim(); if (m) startMagnet(m); };
+      input.onkeydown = function(e) { if (e.key === 'Enter') { var m = input.value.trim(); if (m) startMagnet(m); } };
+      row.appendChild(go);
+      dz.appendChild(row);
+
+      dz.ondragover = function(e) { e.preventDefault(); dz.classList.add('dropzone--active'); };
+      dz.ondragleave = function() { dz.classList.remove('dropzone--active'); };
+      dz.ondrop = function(e) { e.preventDefault(); dz.classList.remove('dropzone--active'); handleDrop(e); };
+
+      app.appendChild(dz);
+    }
+
+    function renderLoading() {
+      var loader = document.createElement('div');
+      loader.className = 'loader';
+
+      var spinner = document.createElement('div');
+      spinner.className = 'loader__spinner';
+      loader.appendChild(spinner);
+
+      var text = document.createElement('p');
+      text.className = 'loader__text';
+      text.id = 'loader-text';
+      text.textContent = 'Connecting to peers...';
+      loader.appendChild(text);
+
+      var peers = document.createElement('p');
+      peers.className = 'loader__peers';
+      peers.id = 'loader-peers';
+      loader.appendChild(peers);
+
+      var cancel = document.createElement('button');
+      cancel.className = 'loader__cancel';
+      cancel.textContent = 'Cancel';
+      cancel.onclick = function() { cleanup(); transition('EMPTY'); };
+      loader.appendChild(cancel);
+
+      app.appendChild(loader);
+    }
+
+    function renderStreaming() {
+      if (!player) {
+        player = new Player(app);
+        player.onEnded = function() { transition('POST_PLAY'); };
+        player.onError = function(msg) { showError(msg); cleanup(); transition('EMPTY'); };
+      }
+    }
+
+    function renderPostPlay() {
+      var pp = document.createElement('div');
+      pp.className = 'post-play';
+
+      var msg = document.createElement('h2');
+      msg.className = 'post-play__title';
+      msg.textContent = 'Playback finished';
+      pp.appendChild(msg);
+
+      var actions = document.createElement('div');
+      actions.className = 'post-play__actions';
+
+      var replay = document.createElement('button');
+      replay.className = 'post-play__btn';
+      replay.textContent = 'Replay';
+      replay.onclick = function() {
+        if (player) { player.video.currentTime = 0; player.play(); transition('STREAMING'); }
+      };
+      actions.appendChild(replay);
+
+      var newBtn = document.createElement('button');
+      newBtn.className = 'post-play__btn post-play__btn--primary';
+      newBtn.textContent = 'Load New';
+      newBtn.onclick = function() { cleanup(); transition('EMPTY'); };
+      actions.appendChild(newBtn);
+
+      pp.appendChild(actions);
+      app.appendChild(pp);
+    }
+
+    function transition(s) { state = s; render(); }
+
+    // ── Start torrent: bridge mode or browser mode ──
+    function startMagnet(magnet) {
+      if (!magnet.startsWith('magnet:')) { showError('Not a valid magnet link'); return; }
+
+      cleanup();
+      transition('LOADING');
+
+      if (bridgeReady) {
+        startMagnetBridge(magnet);
+      } else if (client) {
+        startMagnetBrowser(magnet);
+      } else {
+        showError('No torrent engine available');
+        transition('EMPTY');
+      }
+    }
+
+    // ── Bridge mode: HTTP streaming via local Node.js WebTorrent ──
+    function startMagnetBridge(magnet) {
+      bridgeAdd(magnet).then(function(data) {
+        if (data.error) { showError(data.error); transition('EMPTY'); return; }
+
+        currentInfoHash = data.infoHash;
+
+        // Poll bridge for status until ready
+        statusInterval = setInterval(function() {
+          if (state !== 'LOADING') { clearInterval(statusInterval); statusInterval = null; return; }
+
+          bridgeStatus(currentInfoHash).then(function(s) {
+            var lt = document.getElementById('loader-text');
+            var lp = document.getElementById('loader-peers');
+            if (lt && s.numPeers > 0) lt.textContent = 'Buffering...';
+            if (lp) lp.textContent = s.numPeers + ' peer' + (s.numPeers !== 1 ? 's' : '') + ' \u00B7 ' + formatSpeed(s.downloadSpeed);
+
+            if (s.ready) {
+              clearInterval(statusInterval);
+              statusInterval = null;
+
+              // Stream video via HTTP range requests from bridge
+              transition('STREAMING');
+              player.video.src = bridgeUrl('/stream/' + currentInfoHash);
+              player.play();
+              player.setStreaming(true);
+
+              // Continue polling for download progress
+              statusInterval = setInterval(function() {
+                bridgeStatus(currentInfoHash).then(function(ps) {
+                  if (player) player.setDownloadProgress(ps.progress);
+                  if (ps.progress >= 1) {
+                    clearInterval(statusInterval);
+                    statusInterval = null;
+                    if (player) player.setStreaming(false);
+                  }
+                }).catch(function() {});
+              }, 1000);
+            }
+          }).catch(function(err) {
+            showError('Bridge error: ' + err.message);
+            clearInterval(statusInterval);
+            statusInterval = null;
+            transition('EMPTY');
+          });
+        }, 500);
+
+      }).catch(function(err) {
+        showError('Bridge error: ' + err.message);
+        transition('EMPTY');
+      });
+    }
+
+    // ── Browser mode: WebRTC via browser WebTorrent ──
+    function startMagnetBrowser(magnet) {
+      // Remove any existing torrent with the same infoHash to avoid double-pipe
+      client.torrents.slice().forEach(function(t) { t.destroy(); });
+
+      console.log('[PRISM] Browser mode: adding magnet...');
+
+      var torrent = client.add(magnet, {
+        announce: [
+          'wss://tracker.openwebtorrent.com',
+          'wss://tracker.webtorrent.dev',
+          'wss://tracker.btorrent.xyz'
+        ]
+      });
+      currentTorrent = torrent;
+      var rendered = false;
+
+      // ── Diagnostic logging ──
+      torrent.on('infoHash', function() {
+        console.log('[PRISM] infoHash resolved:', torrent.infoHash);
+      });
+
+      torrent.on('metadata', function() {
+        console.log('[PRISM] metadata received — files:', torrent.files.map(function(f) { return f.name + ' (' + f.length + ' bytes)'; }));
+      });
+
+      torrent.on('warning', function(warn) {
+        console.warn('[PRISM] warning:', warn.message || warn);
+      });
+
+      torrent.on('wire', function(wire) {
+        console.log('[PRISM] new peer wire connected — type:', wire.type, 'remoteAddress:', wire.remoteAddress || 'WebRTC');
+        wire.on('close', function() {
+          console.log('[PRISM] peer wire closed');
+        });
+      });
+
+      // Log tracker events if available
+      if (torrent.discovery && torrent.discovery.tracker) {
+        torrent.discovery.tracker.on('update', function(data) {
+          console.log('[PRISM] tracker update:', JSON.stringify(data));
+        });
+        torrent.discovery.tracker.on('warning', function(err) {
+          console.warn('[PRISM] tracker warning:', err.message || err);
+        });
+        torrent.discovery.tracker.on('error', function(err) {
+          console.error('[PRISM] tracker error:', err.message || err);
+        });
+      }
+
+      // Periodic diagnostic every 5 seconds
+      var diagInterval = setInterval(function() {
+        if (!currentTorrent || currentTorrent !== torrent) { clearInterval(diagInterval); return; }
+        console.log('[PRISM] diag — peers:', torrent.numPeers,
+          'downloaded:', (torrent.downloaded / 1024).toFixed(0) + 'KB',
+          'progress:', (torrent.progress * 100).toFixed(1) + '%',
+          'downloadSpeed:', formatSpeed(torrent.downloadSpeed),
+          'ready:', torrent.ready,
+          'files:', torrent.files.length);
+      }, 5000);
+
+      infoInterval = setInterval(function() {
+        if (state !== 'LOADING') { clearInterval(infoInterval); infoInterval = null; return; }
+        var lt = document.getElementById('loader-text');
+        var lp = document.getElementById('loader-peers');
+        if (lt && torrent.numPeers > 0) lt.textContent = 'Buffering...';
+        if (lp) lp.textContent = torrent.numPeers + ' peer' + (torrent.numPeers !== 1 ? 's' : '') + ' \u00B7 ' + formatSpeed(torrent.downloadSpeed);
+      }, 1000);
+
+      torrent.on('ready', function() {
+        console.log('[PRISM] torrent READY — files:', torrent.files.length, 'peers:', torrent.numPeers);
+        if (rendered) return;
+        rendered = true;
+        if (infoInterval) { clearInterval(infoInterval); infoInterval = null; }
+        var file = torrent.files.reduce(function(a, b) { return a.length > b.length ? a : b; });
+        console.log('[PRISM] selected file:', file.name, '(' + file.length + ' bytes)');
+
+        // Deselect non-video files to focus download bandwidth
+        torrent.files.forEach(function(f) {
+          if (f !== file) f.deselect();
+        });
+
+        transition('STREAMING');
+
+        // Determine MIME type
+        var ext = file.name.split('.').pop().toLowerCase();
+        var mimeMap = { mp4: 'video/mp4', webm: 'video/webm', mkv: 'video/x-matroska', avi: 'video/x-msvideo', mov: 'video/quicktime', ogg: 'video/ogg' };
+        var mimeType = mimeMap[ext] || 'video/mp4';
+
+        if (swReady && navigator.serviceWorker.controller) {
+          // ── Service Worker mode: range-request streaming ──
+          // Register this file with the SW, providing a MessagePort for data requests.
+          // The SW intercepts range requests to /prism-stream/<id> and asks us for data.
+          var streamId = torrent.infoHash;
+          var channel = new MessageChannel();
+
+          // Handle data requests from the service worker.
+          // The browser will seek to the END of the file first (to read the
+          // moov atom for MP4 metadata), then seek back to the start.
+          // WebTorrent downloads sequentially, so end-of-file data won't be
+          // available immediately. We use critical() to prioritize the
+          // requested pieces, and createReadStream will wait for data.
+          channel.port1.onmessage = function(e) {
+            if (e.data && e.data.type === 'read') {
+              var start = e.data.start;
+              var end = e.data.end;
+              var responsePort = e.ports[0];
+
+              console.log('[PRISM] SW requesting bytes ' + start + '-' + end +
+                ' (' + ((end - start + 1) / 1024).toFixed(0) + ' KB)');
+
+              // Prioritize these pieces so WebTorrent downloads them next.
+              // critical() tells the torrent to download these byte ranges
+              // with highest priority (ahead of sequential download).
+              try {
+                var pieceLength = torrent.pieceLength;
+                if (pieceLength) {
+                  // Convert byte range to piece indices (relative to file offset in torrent)
+                  var fileOffset = file.offset || 0;
+                  var startPiece = Math.floor((fileOffset + start) / pieceLength);
+                  var endPiece = Math.floor((fileOffset + end) / pieceLength);
+                  console.log('[PRISM] prioritizing pieces ' + startPiece + '-' + endPiece);
+                  torrent.critical(startPiece, endPiece);
+                }
+              } catch(err) {
+                console.warn('[PRISM] critical() not available:', err.message);
+              }
+
+              // createReadStream will wait for pieces to download if needed
+              var stream = file.createReadStream({ start: start, end: end });
+              var chunks = [];
+
+              stream.on('data', function(chunk) {
+                chunks.push(chunk instanceof Uint8Array ? chunk : new Uint8Array(chunk));
+              });
+
+              stream.on('end', function() {
+                var totalLen = 0;
+                chunks.forEach(function(c) { totalLen += c.length; });
+                var merged = new Uint8Array(totalLen);
+                var offset = 0;
+                chunks.forEach(function(c) { merged.set(c, offset); offset += c.length; });
+                console.log('[PRISM] serving ' + totalLen + ' bytes to SW');
+                responsePort.postMessage({ buffer: merged.buffer }, [merged.buffer]);
+              });
+
+              stream.on('error', function(err) {
+                console.error('[PRISM] stream read error for SW:', err);
+                responsePort.postMessage({ error: err.message || 'Read error' });
+              });
+            }
+          };
+
+          // Register with SW
+          navigator.serviceWorker.controller.postMessage({
+            type: 'register-stream',
+            id: streamId,
+            fileSize: file.length,
+            mimeType: mimeType
+          }, [channel.port2]);
+
+          // Point the video element at the SW-intercepted URL (scope-aware for GitHub Pages)
+          var swScope = navigator.serviceWorker.controller.scriptURL.replace(/sw\.js$/, '');
+          var streamUrl = swScope + 'prism-stream/' + streamId;
+          console.log('[PRISM] Service worker streaming via ' + streamUrl);
+          player.video.src = streamUrl;
+
+          player.video.addEventListener('canplay', function onCanPlay() {
+            player.video.removeEventListener('canplay', onCanPlay);
+            console.log('[PRISM] video canplay (SW mode)');
+            player.play();
+          });
+
+          player.video.addEventListener('error', function onErr() {
+            var err = player.video.error;
+            console.error('[PRISM] video error (SW mode):', err ? err.message : 'unknown');
+          });
+
+        } else {
+          // ── Fallback: renderTo (works for small files / fragmented MP4 / WebM) ──
+          console.log('[PRISM] No service worker — using renderTo fallback');
+          console.log('[PRISM] NOTE: Large unfragmented MP4s will not stream without SW');
+
+          window.addEventListener('error', function catchPipeError(e) {
+            if (e.error && e.error.message && e.error.message.indexOf('Can only pipe to one destination') !== -1) {
+              e.preventDefault();
+              console.log('[PRISM] caught videostream pipe error — safe to ignore');
+              return true;
+            }
+          });
+
+          file.renderTo(player.video, { autoplay: true, controls: false }, function(err) {
+            if (err) {
+              console.error('[PRISM] renderTo error:', err);
+              showError(err.message || 'Failed to render video');
+              cleanup(); transition('EMPTY');
+              return;
+            }
+            console.log('[PRISM] renderTo callback complete');
+          });
+        }
+
+        player.video.addEventListener('canplay', function onCanPlay() {
+          player.video.removeEventListener('canplay', onCanPlay);
+          console.log('[PRISM] video canplay');
+          player.playBtn.textContent = '\u23F8';
+        });
+
+        player.setStreaming(true);
+      });
+
+      torrent.on('download', function() {
+        if (player) player.setDownloadProgress(torrent.progress);
+      });
+
+      torrent.on('done', function() {
+        console.log('[PRISM] torrent DONE — fully downloaded');
+        clearInterval(diagInterval);
+        if (player) { player.setDownloadProgress(1); player.setStreaming(false); }
+      });
+
+      torrent.on('error', function(err) {
+        console.error('[PRISM] torrent error:', err.message || err);
+        clearInterval(diagInterval);
+        if (infoInterval) { clearInterval(infoInterval); infoInterval = null; }
+        showError(err.message || 'Torrent error');
+        if (state === 'LOADING') transition('EMPTY');
+      });
+    }
+
+    function handleDrop(e) {
+      // Collect all text data the browser gives us
+      var text = '';
+      var uriList = '';
+      if (e.dataTransfer) {
+        text = e.dataTransfer.getData('text/plain') || '';
+        uriList = e.dataTransfer.getData('text/uri-list') || '';
+      }
+
+      // Check if any of the text data contains a magnet link
+      // (macOS may resolve .webloc files into their URL before delivering)
+      var allText = text + '\n' + uriList;
+      var magnetMatch = allText.match(/(magnet:\?[^\s]+)/);
+      if (magnetMatch) { startMagnet(magnetMatch[1].trim()); return; }
+
+      // Check for dropped files
+      var files = e.dataTransfer && e.dataTransfer.files;
+      if (!files || files.length === 0) {
+        // No files and no magnet in text — show what we got for debugging
+        if (text || uriList) {
+          console.log('[PRISM] drop had text but no magnet — text:', JSON.stringify(text), 'uri-list:', JSON.stringify(uriList));
+          showError('No magnet link found in dropped content');
+        }
+        return;
+      }
+      var file = files[0];
+      console.log('[PRISM] dropped file:', file.name, 'type:', file.type, 'size:', file.size);
+      if (file.name.endsWith('.webloc')) {
+        var reader = new FileReader();
+        reader.onload = function() {
+          // Try XML parse first (.webloc is a plist)
+          var url = parseWebloc(reader.result);
+          if (url && url.startsWith('magnet:')) { startMagnet(url); return; }
+          // Fallback: maybe the content itself contains a magnet link
+          var m = reader.result.match(/(magnet:\?[^\s<"]+)/);
+          if (m) { startMagnet(m[1]); return; }
+          showError('No magnet link found in .webloc file');
+        };
+        reader.readAsText(file);
+      } else if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+        var reader = new FileReader();
+        reader.onload = function() { var t = reader.result.trim(); if (t.startsWith('magnet:')) startMagnet(t); else showError('No magnet link found in file'); };
+        reader.readAsText(file);
+      } else {
+        showError('Drop a .webloc file or drag a magnet link');
+      }
+    }
+
+    function cleanup() {
+      if (infoInterval) { clearInterval(infoInterval); infoInterval = null; }
+      if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
+      if (currentTorrent) { currentTorrent.destroy(); currentTorrent = null; }
+      currentInfoHash = null;
+      if (player) { player.destroy(); player = null; }
+    }
+
+    function showError(message) {
+      var existing = document.querySelector('.error-toast');
+      if (existing) existing.remove();
+      var toast = document.createElement('div');
+      toast.className = 'error-toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(function() { toast.remove(); }, 4000);
+    }
+
+    document.addEventListener('dragover', function(e) { e.preventDefault(); });
+    document.addEventListener('drop', function(e) { e.preventDefault(); if (state === 'EMPTY') handleDrop(e); });
+  </script>
+</body>
+</html>
